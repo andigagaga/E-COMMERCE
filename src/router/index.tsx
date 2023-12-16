@@ -12,6 +12,8 @@ import Home from '../pages/Home';
 import Order from '../pages/Order';
 import Profile from '../pages/Profile';
 import ButtonTabNavigator from '../component/molecules/ButtonTabNavigator';
+import FoodDetail from '../pages/FoodDetail';
+import OrderSummary from '../pages/OrderSummary';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -58,6 +60,16 @@ const Router = () => {
        <Stack.Screen
         name="appMain"
         component={AppMain}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="FoodDetail"
+        component={FoodDetail}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="OrderSummary"
+        component={OrderSummary}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
