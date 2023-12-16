@@ -7,7 +7,7 @@ const SplashScreen = ({navigation}: any) => {
   useEffect(() => {
     setTimeout(() => {
       navigation.replace('SignIn')
-    }, 2000)
+    }, 3000)
   }, [])
 
   return (
@@ -21,10 +21,10 @@ const SplashScreen = ({navigation}: any) => {
         }}>
         <Image
           style={{width: 150, height: 150}}
-          source={require('../../assets/Ilustration/Home.png')}
+          source={require('../../assets/Ilustration/Homes.png')}
         />
         <View style={{height: 38}} />
-        <Text style={{color: '#020202'}}>Hello Splash Screens</Text>
+        <Text style={{color: '#020202', fontSize: 50, fontWeight: 'bold'}}>FoodMarket</Text>
       </View>
     </>
   );

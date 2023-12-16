@@ -4,7 +4,7 @@ import Header from '../../component/molecules/Header';
 import TextInput from '../../component/atoms/TextInput';
 import Button from '../../component/atoms/Button';
 
-const SignIn = () => {
+const SignIn = ({navigation}: any) => {
   return (
     <View style={styles.page}>
       <Header title="SignIn" subTitle="Find your best ever meal"/>
@@ -13,9 +13,9 @@ const SignIn = () => {
         <View style={{height: 24}} />
         <TextInput label="Password" placeholder="Type your password"/>
         <View style={{height: 54}} />
-        <Button text="Sign In"/>
+        <Button text="Sign In" color='black'/>
         <View style={{height: 12}} />
-        <Button text="Create New Account" backgroundColor="green" color="black"/>
+        <Button text="Create New Account" backgroundColor="cyan" color="black" onPress={() => navigation.navigate('SignUp')}/>
       </View>
     </View>
   );
