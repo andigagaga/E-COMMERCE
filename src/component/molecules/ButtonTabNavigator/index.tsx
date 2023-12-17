@@ -1,7 +1,7 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 
-const Icon = ({label, focus}: any) => {
+const Icon = ({label, focus}: {label: string, focus: any}) => {
   switch (label) {
     case 'Home':
       return focus ? (

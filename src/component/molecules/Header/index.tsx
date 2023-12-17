@@ -1,7 +1,7 @@
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 
-const Header = ({title, subTitle, onBack}: any) => {
+const Header = ({title, subTitle, onBack}: {title: string, subTitle: string, onBack: any}) => {
   return (
     <View style={styles.container}>
 

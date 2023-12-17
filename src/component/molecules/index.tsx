@@ -2,7 +2,7 @@ import Header from "./Header";
 
 const Molecules = () => {
     return (
-        <Header/>
+        <Header title={""} subTitle={""} onBack={undefined}/>
     )
 }
 

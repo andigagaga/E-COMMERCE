@@ -2,7 +2,7 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Rating from '../Rating';
 
-const FoodCard = ({image}: any) => {
+const FoodCard = ({image}: {image: string | any}) => {
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image}/>

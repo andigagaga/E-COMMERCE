@@ -14,6 +14,7 @@ import Profile from '../pages/Profile';
 import ButtonTabNavigator from '../component/molecules/ButtonTabNavigator';
 import FoodDetail from '../pages/FoodDetail';
 import OrderSummary from '../pages/OrderSummary';
+import SuccesOrder from '../pages/SuccesOrder';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -70,6 +71,11 @@ const Router = () => {
        <Stack.Screen
         name="OrderSummary"
         component={OrderSummary}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="SuccesOrder"
+        component={SuccesOrder}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

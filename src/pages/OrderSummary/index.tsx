@@ -5,7 +5,7 @@ import ItemListFood from '../../component/molecules/ItemListFood';
 import ItemValue from '../../component/molecules/ItemValue';
 import Button from '../../component/atoms/Button';
 
-const OrderSummary = () => {
+const OrderSummary = ({navigation}: any) => {
   return (
     <View style={{flex: 1}}>
       <Header title="Payment" subTitle="You deserve better meal" onBack />
@@ -36,7 +36,7 @@ const OrderSummary = () => {
       </View>
 
       <View style={styles.button}>
-        <Button text="Checkout Now" />
+        <Button text="Checkout Now" onPress={() => navigation.replace('SuccesOrder')}/>
       </View>
     </View>
   );

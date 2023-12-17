@@ -21,7 +21,7 @@ export default Counter;
 const styles = StyleSheet.create({
   container: {flexDirection: 'row', alignItems: 'center'},
   counter: {
-    color: 'counter',
+    color: 'black',
     fontSize: 16,
     fontWeight: '400',
     marginHorizontal: 10,
