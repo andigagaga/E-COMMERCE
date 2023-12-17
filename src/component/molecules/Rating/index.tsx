@@ -1,7 +1,7 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 
-const Rating = () => {
+const Rating = ({rating}: any) => {
   return (
     <View style={styles.ratingContainer}>
           <View style={styles.startContainer}>
@@ -11,7 +11,7 @@ const Rating = () => {
             <Image source={require('../../../assets/Dummy/Ic-Star-on.png')} />
             <Image source={require('../../../assets/Dummy/Ic-Star-of.png')} />
           </View>
-          <Text>4.5</Text>
+          <Text>{rating}</Text>
         </View>
   )
 }

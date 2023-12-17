@@ -7,23 +7,85 @@ const ItemListFood = ({
   image,
   onPress,
   items,
+  name,
+  TotalItems,
   rating,
-}: {
-  image: any;
-  onPress: any;
-  items: any;
-  rating: any;
-}) => {
+  price,
+  type,
+  date,
+  status,
+}: any) => {
+  const renderItem = () => {
+    switch (type) {
+      case 'product':
+        // items product home page
+        return (
+          <>
+            <View style={styles.contentContainer}>
+              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.price}>IDR {price}</Text>
+            </View>
+            <Rating rating={rating}/>
+          </>
+        );
+      case 'order-summary':
+        // item order summary
+        return (
+          <>
+            <View style={styles.contentContainer}>
+              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.price}>IDR {price}</Text>
+            </View>
+            <Text style={styles.titleItems}>{items} items</Text>
+          </>
+        );
+      case 'in-progress':
+        // item in progress
+        return (
+          <>
+            <View style={styles.contentContainer}>
+              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.price}>
+                {TotalItems} items * IDR {price}
+              </Text>
+            </View>
+          </>
+        );
+      case 'past-orders':
+        // item past orders
+        return (
+          <>
+           <View style={styles.contentContainer}>
+              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.price}>
+                {TotalItems} items IDR {price}
+              </Text>
+            </View>
+            <View>
+              <Text style={styles.date}>{date}</Text>
+              <Text style={styles.status}>{status}</Text>
+            </View>
+          </>
+        );
+      default:
+      // item product
+      return (
+        <>
+          <View style={styles.contentContainer}>
+            <Text style={styles.title}>{name}</Text>
+            <Text style={styles.price}>IDR 289.000</Text>
+          </View>
+          <Rating />
+        </>
+      );
+    }
+  };
+
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <View style={styles.container}>
         <Image source={image} style={styles.image} />
-        <View style={styles.contentContainer}>
-          <Text style={styles.title}>Soup Bumil</Text>
-          <Text style={styles.price}>IDR 289.000</Text>
-        </View>
-        {items && !rating && <Text style={styles.titleItems}>{items} items</Text>}
-        {rating && !items && <Rating />}
+        {renderItem()}
       </View>
     </TouchableOpacity>
   );
@@ -50,5 +112,11 @@ const styles = StyleSheet.create({
     fontSize: 13,
     fontWeight: '400',
   },
-  titleItems: {color: 'rgba(141, 146, 163, 1)', fontSize: 13, fontWeight: '400'}
+  titleItems: {
+    color: 'rgba(141, 146, 163, 1)',
+    fontSize: 13,
+    fontWeight: '400',
+  },
+  date: {color: 'rgba(141, 146, 163, 1)', fontSize: 10, fontWeight: '400'},
+  status: {color: 'rgba(217, 67, 94, 1)', fontSize: 10, fontWeight: '400'}
 });

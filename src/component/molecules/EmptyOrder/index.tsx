@@ -1,15 +1,19 @@
 import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import Button from '../../component/atoms/Button';
+import Button from '../../atoms/Button';
+import { useNavigation } from '@react-navigation/native';
 
-const SuccesSignUp = ({navigation}: any) => {
+const EmptyOrder = () => {
+
+  const navigation = useNavigation();
+  
   return (
     <View style={styles.page}>
-      <Image source={require('../../assets/Ilustration/SuccesSignUp.png')} />
+      <Image source={require('../../../assets/Ilustration/OrderPage.png')} />
       <View style={{height: 24}} />
-      <Text style={styles.title}>Yeay! Completed</Text>
-      <Text style={styles.subTitle}>Now you are able to order</Text>
-      <Text style={styles.subTitle}>some foods as a self-reward</Text>
+      <Text style={styles.title}>Ouch! Hungry</Text>
+      <Text style={styles.subTitle}>Seems like you have not</Text>
+      <Text style={styles.subTitle}>ordered any food yet</Text>
       <View style={{height: 24}} />
       <View style={styles.buttonConatiner}>
         <Button
@@ -21,11 +25,11 @@ const SuccesSignUp = ({navigation}: any) => {
   );
 };
 
-export default SuccesSignUp;
+export default EmptyOrder;
 
 const styles = StyleSheet.create({
   page: {
-    backgroundColor: 'yellow',
+    backgroundColor: 'white',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',

@@ -14,6 +14,9 @@ const OrderSummary = ({navigation}: any) => {
         <Text style={styles.label}>Item Ordered</Text>
         <ItemListFood
           image={require('../../assets/Dummy/FoodCard2.png')}
+          type="order-summary"
+          name="Guswandi"
+          price="2.000.000"
           items={14}
           onPress={undefined}
           rating={undefined}
@@ -36,7 +39,10 @@ const OrderSummary = ({navigation}: any) => {
       </View>
 
       <View style={styles.button}>
-        <Button text="Checkout Now" onPress={() => navigation.replace('SuccesOrder')}/>
+        <Button
+          text="Checkout Now"
+          onPress={() => navigation.replace('SuccesOrder')}
+        />
       </View>
     </View>
   );
@@ -49,7 +55,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     paddingVertical: 16,
     backgroundColor: 'white',
-    flex: 1
+    flex: 1,
   },
   label: {
     color: 'rgba(2, 2, 2, 1)',

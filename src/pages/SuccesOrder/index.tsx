@@ -2,7 +2,7 @@ import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import Button from '../../component/atoms/Button'
 
-const SuccesOrder = () => {
+const SuccesOrder = ({navigation}: any) => {
   return (
     <View style={styles.page}>
       <Image source={require('../../assets/Ilustration/SuccesOrder.png')}/>
@@ -12,9 +12,11 @@ const SuccesOrder = () => {
         <Text style={styles.subTitle}>preparing your best foods</Text>
       </View>
       <View style={styles.button}>
-        <Button text="Order Other Foods"/>
+        <Button text="Order Other Foods" onPress={() => navigation.replace("appMain")}/>
         <View style={{height: 20}}/>
-        <Button text="View My Order" backgroundColor="rgba(141, 146, 163, 1)" color="white"/>
+
+        {/* dia akan ke navigate ke halaman appMain tapi spesific ke tab order */}
+        <Button text="View My Order" backgroundColor="rgba(141, 146, 163, 1)" color="white" onPress={() => navigation.replace("appMain", {screen: 'Order'})}/>
       </View>
     </View> 
   )
