@@ -15,6 +15,7 @@ import ButtonTabNavigator from '../component/molecules/ButtonTabNavigator';
 import FoodDetail from '../pages/FoodDetail';
 import OrderSummary from '../pages/OrderSummary';
 import SuccesOrder from '../pages/SuccesOrder';
+import OrderDetail from '../pages/OrderDetailProgres';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -76,6 +77,11 @@ const Router = () => {
        <Stack.Screen
         name="SuccesOrder"
         component={SuccesOrder}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="OrderDetail"
+        component={OrderDetail}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

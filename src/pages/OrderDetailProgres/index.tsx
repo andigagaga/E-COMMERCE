@@ -5,12 +5,12 @@ import ItemListFood from '../../component/molecules/ItemListFood';
 import ItemValue from '../../component/molecules/ItemValue';
 import Button from '../../component/atoms/Button';
 
-const OrderSummary = ({navigation}: any) => {
+const OrderDetail = ({navigation}: any) => {
   return (
     <View style={{flex: 1}}>
       <Header title="Payment" subTitle="You deserve better meal" onBack />
       <ScrollView>
-        <View style={{height: 24}} />
+        <View style={{height: 5}} />
         <View style={styles.container}>
           <Text style={styles.label}>Item Ordered</Text>
           <ItemListFood
@@ -29,7 +29,7 @@ const OrderSummary = ({navigation}: any) => {
           <ItemValue label="Tax 10%" value="IDR 1.800.390" />
           <ItemValue label="Total Price" value="IDR 390.803.000" />
         </View>
-        <View style={{height: 15}} />
+        <View style={{height: 5}} />
         <View style={styles.container}>
           <Text style={styles.label}>Deliver to:</Text>
           <ItemValue label="Name" value="Angga Risky" />
@@ -39,10 +39,18 @@ const OrderSummary = ({navigation}: any) => {
           <ItemValue label="City" value="Bandung" />
         </View>
 
+        <View style={{height: 5}} />
+        <View style={styles.container}>
+          <Text style={styles.label}>Order Status:</Text>
+          <ItemValue label="#FM209391" value="Paid" />
+        </View>
+
         <View style={styles.button}>
           <Button
-            text="Checkout Now"
+            text="Cancel My Order"
             onPress={() => navigation.replace('SuccesOrder')}
+            backgroundColor='rgba(217, 67, 94, 1)'
+            color='white'
           />
         </View>
       </ScrollView>
@@ -50,14 +58,14 @@ const OrderSummary = ({navigation}: any) => {
   );
 };
 
-export default OrderSummary;
+export default OrderDetail;
 
 const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 24,
     paddingVertical: 16,
+    marginTop: 24,
     backgroundColor: 'white',
-    flex: 1,
   },
   label: {
     color: 'rgba(2, 2, 2, 1)',

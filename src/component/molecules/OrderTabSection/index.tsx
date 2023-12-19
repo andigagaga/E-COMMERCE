@@ -26,7 +26,7 @@ const InProgres = () => {
   const navigation = useNavigation();
 
   const handleFoodDetailNavigation = () => {
-    navigation.navigate('FoodDetail');
+    navigation.navigate('OrderDetail');
   };
 
   return (
@@ -120,7 +120,7 @@ const PastOrders = () => {
   const navigation = useNavigation();
 
   const handleFoodDetailNavigation = () => {
-    navigation.navigate('FoodDetail');
+    navigation.navigate('OrderDetail');
   };
 
   return (
