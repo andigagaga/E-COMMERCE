@@ -1,14 +1,25 @@
 import { useEffect } from 'react';
 import {Image, Text, View} from 'react-native';
+import { getData } from '../../utils/storage';
 
 const SplashScreen = ({navigation}: any) => {
 
   // // saya menggunakan navigation.replace karena = saat berpindah halaman halaman sebelumnya terhapus
   useEffect(() => {
     setTimeout(() => {
-      navigation.replace('SignIn')
+
+       // untuk penyimpanan agar ketika user masuk aplikasi maka akan langsung masuk ke halaman home tanpa perlu login ulang apa bila user belom sigout / token  ya belom kehapius
+      getData('token').then((res) => {
+        if(res) {
+          navigation.reset({index: 0, routes: [{name: 'appMain'}]})
+        } else {
+          navigation.reset({index: 0, routes: [{name: 'SignIn'}]})
+        }
+      })
     }, 3000)
   }, [])
+
+  
 
   return (
     <>

@@ -1,0 +1,331 @@
+import axios from 'axios';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
+import { showMessage } from 'react-native-flash-message';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useDispatch, useSelector } from 'react-redux';
+import Button from '../../component/atoms/Button';
+import Select from '../../component/atoms/Select';
+import TextInput from '../../component/atoms/TextInput';
+import Header from '../../component/molecules/Header';
+import useForm from '../../utils/useForm';
+
+const SignUpAdress = ({navigation}: any) => {
+  const [form, setForm] = useForm({
+    phoneNumber: '',
+    address: '',
+    houseNumber: '',
+    city: '',
+    // password_confirmation: '',
+  });
+
+  const dispatch = useDispatch();
+  const registerReducer = useSelector((state: any) => state.registerReducer);
+  const data = {
+    ...form,
+    ...registerReducer,
+  };
+
+  console.log(data);
+
+  const onSubmit = async () => {
+    // console.log('form', form);
+    // untuk mengirim data ke redux nya dan disini semua data sigin up dan addres terkirim ke redux
+    // console.log('succes', data);
+
+    // if (!form.phoneNumber || !form.address || !form.houseNumber || !form.city) {
+    //   showToast('Silahkan isi data nya dulu :)', 'danger');
+    //   return;
+    // }
+
+    dispatch({type: 'SET_LOADING', value: true});
+    await axios
+      .post(
+        'https://3c55-2404-8000-1004-2418-18b-dd80-e4af-685d.ngrok-free.app/api/register',
+        data,
+      )
+      .then(res => {
+        console.log('Data Registrasi: ', res.data);
+        dispatch({type: 'SET_LOADING', value: false});
+        // notif jika success login
+        showMessage({
+          message: 'Sign-in successful',
+          type: 'success',
+          titleStyle: {textAlign: 'center'},
+        });
+        navigation.replace('SuccesSignUp');
+      })
+      .catch(err => {
+        dispatch({type: 'SET_LOADING', value: false});
+        console.error('Registrasi gagals:', err.response.data.message);
+        // notif jika gagal login
+        showMessage({
+          message: err?.response?.data?.message || 'Ada data yang tidak valid',
+          type: 'danger',
+          titleStyle: {textAlign: 'center'},
+        });
+      });
+  };
+
+  const showToast = (message: any, type: any) => {
+    showMessage({
+      message,
+      type: type === 'success' ? 'success' : 'danger',
+      backgroundColor:
+        type === 'success' ? 'rgba(26, 188, 156, 1)' : 'rgba(217, 67, 94, 1)',
+    });
+  };
+
+  return (
+    <ScrollView contentContainerStyle={{flexGrow: 1}}>
+      <View style={styles.page}>
+        <Header
+          title="Address"
+          subTitle="Make sure it’s valid"
+          onBack={() => {}}
+        />
+        <View style={styles.container}>
+          <TextInput
+            label="Address"
+            placeholder="Type your address"
+            value={form.address}
+            onChangeText={value => setForm('address', value)}
+          />
+          <View style={{height: 24}} />
+          <Select
+            label="City"
+            value={form.city}
+            onSelectChange={value => setForm('city', value)}
+          />
+          <View style={{height: 24}} />
+          <TextInput
+            label="House No."
+            placeholder="Type your house number"
+            value={form.houseNumber}
+            onChangeText={value => setForm('houseNumber', value)}
+          />
+          <View style={{height: 24}} />
+          <TextInput
+            label="Phone No."
+            placeholder="Type your phone number"
+            value={form.phoneNumber}
+            onChangeText={value => setForm('phoneNumber', value)}
+          />
+          <View style={{height: 24}} />
+          <View style={{height: 24}} />
+          <View style={{height: 54}} />
+          <Button text="Sign Up Now" onPress={onSubmit} />
+          <View style={{height: 12}} />
+        </View>
+      </View>
+    </ScrollView>
+  );
+};
+
+export default SignUpAdress;
+
+const styles = StyleSheet.create({
+  page: {flex: 1},
+  container: {
+    backgroundColor: 'white',
+    paddingHorizontal: 24,
+    paddingVertical: 26,
+    marginTop: 24,
+    flex: 1,
+  },
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import axios from 'axios';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
+import {showMessage} from 'react-native-flash-message';
+import {ScrollView} from 'react-native-gesture-handler';
+import {useDispatch, useSelector} from 'react-redux';
+import Button from '../../component/atoms/Button';
+import Select from '../../component/atoms/Select';
+import TextInput from '../../component/atoms/TextInput';
+import Header from '../../component/molecules/Header';
+import useForm from '../../utils/useForm';
+
+const SignUpAdress = ({navigation}: any) => {
+
+  const [form, setForm] = useForm({
+    phoneNumber: '',
+    address: '',
+    houseNumber: '',
+    city: '',
+    // password_confirmation: '',
+  });
+  
+  const dispatch = useDispatch();
+  const {registerReducer, photoReducer} = useSelector((state: any) => state);
+
+  const onSubmit = async () => {
+
+    const data = {
+      ...form,
+      ...registerReducer,
+    };
+  
+    console.log(data);
+  
+    const onSubmit = async () => {
+      // console.log('form', form);
+      // untuk mengirim data ke redux nya dan disini semua data sigin up dan addres terkirim ke redux
+      // console.log('succes', data);
+  
+      // if (!form.phoneNumber || !form.address || !form.houseNumber || !form.city) {
+      //   showToast('Silahkan isi data nya dulu :)', 'danger');
+      //   return;
+      // }
+  
+      dispatch({type: 'SET_LOADING', value: true});
+      await axios
+        .post(
+          'https://3c55-2404-8000-1004-2418-18b-dd80-e4af-685d.ngrok-free.app/api/register',
+          data,
+        )
+        .then(res => {
+          console.log('Data Registrasi: ', res.data);
+  
+          // kondisi upload photo
+          if (photoReducer.isUploadPhoto) {
+            // variabel data photo
+            const photoForUpload = new FormData();
+            photoForUpload.append('file', photoReducer);
+  
+            // mengrim loading ke redux
+            dispatch({type: 'SET_LOADING', value: false});
+  
+            // axios post upload photo
+            axios
+              .post(
+                'https://3c55-2404-8000-1004-2418-18b-dd80-e4af-685d.ngrok-free.app/api/user/photo',
+                photoForUpload,
+                {
+                  headers: {
+                    Authorization: `${res.data.data.token_type} ${res.data.data.access_token}`,
+                    'Content-Type': 'multipart/form-data',
+                  },
+                },
+              )
+              .then(resUpload => {
+                console.log('success', resUpload);
+              })
+              .catch(err => {
+                showMessage({
+                  message: 'Upload photo gagal',
+                  type: 'danger',
+                  titleStyle: {textAlign: 'center'},
+                });
+              });
+          }
+  
+          // notif jika success login
+          showMessage({
+            message: 'Sign-in successful',
+            type: 'success',
+            titleStyle: {textAlign: 'center'},
+          });
+          navigation.replace('SuccesSignUp');
+        })
+        .catch(err => {
+          dispatch({type: 'SET_LOADING', value: false});
+          console.error('Registrasi gagals:', err.response.data.message);
+          // notif jika gagal login
+          showMessage({
+            message: err?.response?.data?.message || 'Ada data yang tidak valid',
+            type: 'danger',
+            titleStyle: {textAlign: 'center'},
+          });
+        });
+    };
+  
+    const showToast = (message: any, type: any) => {
+      showMessage({
+        message,
+        type: type === 'success' ? 'success' : 'danger',
+        backgroundColor:
+          type === 'success' ? 'rgba(26, 188, 156, 1)' : 'rgba(217, 67, 94, 1)',
+      });
+    };
+  }
+
+
+
+  return (
+    <ScrollView contentContainerStyle={{flexGrow: 1}}>
+      <View style={styles.page}>
+        <Header
+          title="Address"
+          subTitle="Make sure it’s valid"
+          onBack={() => {}}
+        />
+        <View style={styles.container}>
+          <TextInput
+            label="Address"
+            placeholder="Type your address"
+            value={form.address}
+            onChangeText={value => setForm('address', value)}
+          />
+          <View style={{height: 24}} />
+          <Select
+            label="City"
+            value={form.city}
+            onSelectChange={value => setForm('city', value)}
+          />
+          <View style={{height: 24}} />
+          <TextInput
+            label="House No."
+            placeholder="Type your house number"
+            value={form.houseNumber}
+            onChangeText={value => setForm('houseNumber', value)}
+          />
+          <View style={{height: 24}} />
+          <TextInput
+            label="Phone No."
+            placeholder="Type your phone number"
+            value={form.phoneNumber}
+            onChangeText={value => setForm('phoneNumber', value)}
+          />
+          <View style={{height: 24}} />
+          <View style={{height: 24}} />
+          <View style={{height: 54}} />
+          <Button text="Sign Up Now" onPress={onSubmit} />
+          <View style={{height: 12}} />
+        </View>
+      </View>
+    </ScrollView>
+  );
+};
+
+export default SignUpAdress;
+
+const styles = StyleSheet.create({
+  page: {flex: 1},
+  container: {
+    backgroundColor: 'white',
+    paddingHorizontal: 24,
+    paddingVertical: 26,
+    marginTop: 24,
+    flex: 1,
+  },
+});

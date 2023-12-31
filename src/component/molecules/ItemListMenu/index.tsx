@@ -1,14 +1,17 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 
-const ItemListMenu = ({text}: any) => {
+const ItemListMenu = ({ text, onPress }: { text: string, onPress: () => void }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>{text}</Text>
-      <Image source={require('../../../assets/Icon/Ic-next.png')}/>
-    </View>
-  )
-}
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.container}>
+        <Text style={styles.title}>{text}</Text>
+        <Image source={require('../../../assets/Icon/Ic-next.png')} />
+      </View>
+    </TouchableOpacity>
+  );
+};
+
 
 export default ItemListMenu
 

@@ -1,7 +1,18 @@
 import { Image, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { getData } from '../../../utils/storage'
 
 const HomeProfile = () => {
+
+  // state upload photo di profile
+  const [photo, setPhoto] = useState('kosong');
+  useEffect(() => {
+    getData('userProfile').then((res: any) => {
+      console.log('user Profile: ', res);
+      setPhoto({ uri: res.profile_photo_url });
+    });
+  }, []);  
+
   return (
     <View style={styles.profileContainer}>
     <View style={styles.appName}>
@@ -9,8 +20,8 @@ const HomeProfile = () => {
       <Text style={styles.subTitle}>Let’s get some foods</Text>
     </View>
     <Image
+      source={photo}
       style={styles.profile}
-      source={require('../../../assets/Dummy/WelcomeUser.png')}
     />
   </View>
   )

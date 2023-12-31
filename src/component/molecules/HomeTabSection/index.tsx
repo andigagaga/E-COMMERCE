@@ -1,5 +1,5 @@
 import {Image, StyleSheet, Text, View, useWindowDimensions} from 'react-native';
-import React from 'react';
+import React, {useEffect} from 'react';
 
 // react native tab View
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
@@ -7,6 +7,8 @@ import Rating from '../Rating';
 import ItemListFood from '../ItemListFood';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {getFoodDataByTypes} from '../../../redux/action';
 
 // style tabBar
 const renderTabBar = (props: any) => (
@@ -29,73 +31,31 @@ const NewTaste = () => {
     navigation.navigate('FoodDetail');
   };
 
+  const dispatch = useDispatch();
+  const {newTaste} = useSelector((state: any) => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getFoodDataByTypes('New_food'));
+  }, []);
+
   return (
     <View style={{backgroundColor: 'white'}}>
       <ScrollView>
         <View style={{paddingVertical: 5, paddingHorizontal: 12}}>
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard1.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard2.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard3.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard1.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard2.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard3.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard1.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
+          {newTaste.map((item: any) => {
+            return (
+              <ItemListFood
+                key={item.id}
+                rating={item.reting}
+                image={{uri: item.pictures}}
+                onPress={handleFoodDetailNavigation}
+                items={undefined}
+                type="product"
+                price={item.price}
+                name={item.name}
+              />
+            );
+          })}
         </View>
       </ScrollView>
     </View>
@@ -109,73 +69,31 @@ const Popular = () => {
     navigation.navigate('FoodDetail');
   };
 
+  const dispatch = useDispatch();
+  const {popular} = useSelector((state: any) => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getFoodDataByTypes('Popular'));
+  }, []);
+
   return (
     <View style={{backgroundColor: 'white'}}>
       <ScrollView>
         <View style={{paddingVertical: 5, paddingHorizontal: 12}}>
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard1.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard2.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard3.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard1.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard2.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard3.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard1.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
+          {popular.map((item: any) => {
+            return (
+              <ItemListFood
+                key={item.id}
+                rating={item.reting}
+                image={{uri: item.pictures}}
+                onPress={handleFoodDetailNavigation}
+                items={undefined}
+                type="product"
+                price={item.price}
+                name={item.name}
+              />
+            );
+          })}
         </View>
       </ScrollView>
     </View>
@@ -189,37 +107,31 @@ const Recommended = () => {
     navigation.navigate('FoodDetail');
   };
 
+  const dispatch = useDispatch();
+  const {recommended} = useSelector((state: any) => state.homeReducer);
+
+  useEffect(() => {
+    dispatch(getFoodDataByTypes('Recommended'));
+  }, []);
+
   return (
     <View style={{backgroundColor: 'white'}}>
       <ScrollView>
         <View style={{paddingVertical: 5, paddingHorizontal: 12}}>
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard1.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard2.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
-          <ItemListFood
-            rating={4.5}
-            image={require('../../../assets/Dummy/FoodCard3.png')}
-            onPress={handleFoodDetailNavigation}
-            items={undefined}
-            type="product"
-            price="2.000.000"
-            name="Guswandi"
-          />
+          {recommended.map((item: any) => {
+            return (
+              <ItemListFood
+                key={item.id}
+                rating={item.reting}
+                image={{uri: item.pictures}}
+                onPress={handleFoodDetailNavigation}
+                items={undefined}
+                type="product"
+                price={item.price}
+                name={item.name}
+              />
+            );
+          })}
         </View>
       </ScrollView>
     </View>

@@ -2,6 +2,7 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import React from 'react';
 import Rating from '../Rating';
 import {useNavigation} from '@react-navigation/native';
+import Number from '../Number';
 
 const ItemListFood = ({
   image,
@@ -23,9 +24,9 @@ const ItemListFood = ({
           <>
             <View style={styles.contentContainer}>
               <Text style={styles.title}>{name}</Text>
-              <Text style={styles.price}>IDR {price}</Text>
+              <Number style={styles.price} number={price} type="currency" />
             </View>
-            <Rating rating={rating}/>
+            <Rating number={rating} />
           </>
         );
       case 'order-summary':
@@ -55,7 +56,7 @@ const ItemListFood = ({
         // item past orders
         return (
           <>
-           <View style={styles.contentContainer}>
+            <View style={styles.contentContainer}>
               <Text style={styles.title}>{name}</Text>
               <Text style={styles.price}>
                 {TotalItems} items IDR {price}
@@ -68,16 +69,16 @@ const ItemListFood = ({
           </>
         );
       default:
-      // item product
-      return (
-        <>
-          <View style={styles.contentContainer}>
-            <Text style={styles.title}>{name}</Text>
-            <Text style={styles.price}>IDR 289.000</Text>
-          </View>
-          <Rating />
-        </>
-      );
+        // item product
+        return (
+          <>
+            <View style={styles.contentContainer}>
+              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.price}>IDR 289.000</Text>
+            </View>
+            <Rating />
+          </>
+        );
     }
   };
 
@@ -118,5 +119,5 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   date: {color: 'rgba(141, 146, 163, 1)', fontSize: 10, fontWeight: '400'},
-  status: {color: 'rgba(217, 67, 94, 1)', fontSize: 10, fontWeight: '400'}
+  status: {color: 'rgba(217, 67, 94, 1)', fontSize: 10, fontWeight: '400'},
 });

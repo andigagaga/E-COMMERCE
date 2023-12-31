@@ -5,7 +5,7 @@ const useForm = (iniTialValue: any) => {
 
   return [
     form,
-    (formType: any, formValue: string | number) => {
+    (formType: any, formValue: any) => {
       if (formType === 'reset') {
         return setForm(iniTialValue);
       }

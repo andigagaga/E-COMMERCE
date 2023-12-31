@@ -8,6 +8,7 @@ import ItemListFood from '../ItemListFood';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import ItemListMenu from '../ItemListMenu';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // style tabBar
 const renderTabBar = (props: any) => (
@@ -26,17 +27,33 @@ const renderTabBar = (props: any) => (
 const Account = () => {
   const navigation = useNavigation();
 
-  const handleFoodDetailNavigation = () => {
-    navigation.navigate('OrderDetail');
-  };
+  // function SignOut
+  const SignOut = () => {
+    // remove semua storage
+    AsyncStorage.multiRemove(['userProfile', 'token']).then(() => {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'SignIn' }],
+    });
+    })
+  }
 
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <ScrollView>
-        <ItemListMenu text="Edit Profile"/>
-        <ItemListMenu text="Home Address"/>
-        <ItemListMenu text="Security"/>
-        <ItemListMenu text="Payments"/>
+        <ItemListMenu text="Edit Profile" onPress={function (): void {
+          throw new Error('Function not implemented.');
+        } }/>
+        <ItemListMenu text="Home Address" onPress={function (): void {
+          throw new Error('Function not implemented.');
+        } }/>
+        <ItemListMenu text="Security" onPress={function (): void {
+          throw new Error('Function not implemented.');
+        } }/>
+        <ItemListMenu text="Payments" onPress={function (): void {
+          throw new Error('Function not implemented.');
+        } }/>
+        <ItemListMenu text="SignOut" onPress={SignOut}/>
       </ScrollView>
     </View>
   );
@@ -52,10 +69,18 @@ const FoodMarket = () => {
   return (
     <View style={{backgroundColor: 'white', flex: 1}}>
       <ScrollView>
-        <ItemListMenu  text="Rate App"/>
-        <ItemListMenu text="Help Center"/>
-        <ItemListMenu text="Privacy & Policy"/>
-        <ItemListMenu text="Terms & Conditions"/>
+        <ItemListMenu  text="Rate App" onPress={function (): void {
+          throw new Error('Function not implemented.');
+        } }/>
+        <ItemListMenu text="Help Center" onPress={function (): void {
+          throw new Error('Function not implemented.');
+        } }/>
+        <ItemListMenu text="Privacy & Policy" onPress={function (): void {
+          throw new Error('Function not implemented.');
+        } }/>
+        <ItemListMenu text="Terms & Conditions" onPress={function (): void {
+          throw new Error('Function not implemented.');
+        } }/>
       </ScrollView>
     </View>
   );

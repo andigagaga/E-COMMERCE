@@ -2,13 +2,13 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import Rating from '../Rating';
 
-const FoodCard = ({image}: {image: string | any}) => {
+const FoodCard = ({image, name, rating}: {image: string | any, name: string, rating: number | string    }) => {
   return (
     <View style={styles.container}>
       <Image source={image} style={styles.image}/>
       <View style={styles.content}>
-        <Text style={styles.text}>Cherry Healthy</Text>
-        <Rating/>
+        <Text style={styles.text}>{name}</Text>
+        <Rating number={rating}/>
       </View>
     </View>
   );
