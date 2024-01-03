@@ -7,7 +7,7 @@ const Rating = ({number}: number | any) => {
     let start = [];
     for(let i=1; i<=5; i++) {
       if(i <= number) {
-        start.push(<Image key={i} source={require('../../../assets/Dummy/Ic-Star-on.png')} />)
+        start.push(<Image key={i} source={require('../../../assets/Dummy/Ic-Star-on.png')}/>)
       } else {
         start.push(<Image key={i} source={require('../../../assets/Dummy/Ic-Star-of.png')} />)
       }
@@ -19,7 +19,7 @@ const Rating = ({number}: number | any) => {
           <View style={styles.startContainer}>
             {renderStart()}
           </View>
-          <Number number={number} type='decimal'/>
+          <Number number={number} type='decimal' style={styles.numberRating}/>
           <Text>{number}</Text>
         </View>
   )
@@ -28,6 +28,7 @@ const Rating = ({number}: number | any) => {
 export default Rating
 
 const styles = StyleSheet.create({
-  ratingContainer: {flexDirection: 'row', marginTop: 5},
+  ratingContainer: {flexDirection: 'row', marginTop: 5, alignItems: 'center'},
     startContainer: {flexDirection: 'row', marginRight: 6, alignItems: 'center'},
+    numberRating: {fontSize: 12, fontWeight: 'bold', color: 'rgba(141, 146, 163, 1)'}
 })

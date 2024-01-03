@@ -66,7 +66,6 @@ const SignUp = ({navigation}: any) => {
         maxHeight: 200,
       },
       response => {
-        console.log('Response', response);
         if (response.didCancel) {
           showMessage({
             message: 'Anda membatalkan pengambilan gambar',
@@ -148,6 +147,7 @@ const SignUp = ({navigation}: any) => {
             placeholder="Passwor Confirmation"
             value={form.password_confirmation}
             onChangeText={value => setForm('password_confirmation', value)}
+            secureTextEntry
           />
           <View style={{height: 54}} />
           <Button text="Continue" onPress={onSubmit} />

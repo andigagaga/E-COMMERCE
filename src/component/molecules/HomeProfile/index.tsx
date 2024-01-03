@@ -1,14 +1,13 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { getData } from '../../../utils/storage'
+import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { getData } from '../../../utils/storage';
 
 const HomeProfile = () => {
 
   // state upload photo di profile
-  const [photo, setPhoto] = useState('kosong');
+  const [photo, setPhoto] = useState<{uri: string}>({uri: ''});
   useEffect(() => {
     getData('userProfile').then((res: any) => {
-      console.log('user Profile: ', res);
       setPhoto({ uri: res.profile_photo_url });
     });
   }, []);  

@@ -1,14 +1,13 @@
-import {Image, StyleSheet, Text, View, useWindowDimensions} from 'react-native';
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 
 // react native tab View
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import Rating from '../Rating';
+import { useNavigation } from '@react-navigation/native';
+import { ScrollView } from 'react-native-gesture-handler';
+import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFoodDataByTypes } from '../../../redux/action';
 import ItemListFood from '../ItemListFood';
-import {ScrollView} from 'react-native-gesture-handler';
-import {useNavigation} from '@react-navigation/native';
-import {useDispatch, useSelector} from 'react-redux';
-import {getFoodDataByTypes} from '../../../redux/action';
 
 // style tabBar
 const renderTabBar = (props: any) => (
@@ -27,10 +26,6 @@ const renderTabBar = (props: any) => (
 const NewTaste = () => {
   const navigation = useNavigation();
 
-  const handleFoodDetailNavigation = () => {
-    navigation.navigate('FoodDetail');
-  };
-
   const dispatch = useDispatch();
   const {newTaste} = useSelector((state: any) => state.homeReducer);
 
@@ -48,7 +43,7 @@ const NewTaste = () => {
                 key={item.id}
                 rating={item.reting}
                 image={{uri: item.pictures}}
-                onPress={handleFoodDetailNavigation}
+                onPress={() => navigation.navigate('FoodDetail', item)}
                 items={undefined}
                 type="product"
                 price={item.price}
@@ -65,9 +60,9 @@ const NewTaste = () => {
 const Popular = () => {
   const navigation = useNavigation();
 
-  const handleFoodDetailNavigation = () => {
-    navigation.navigate('FoodDetail');
-  };
+  // const handleFoodDetailNavigation = () => {
+  //   navigation.navigate('FoodDetail');
+  // };
 
   const dispatch = useDispatch();
   const {popular} = useSelector((state: any) => state.homeReducer);
@@ -86,7 +81,7 @@ const Popular = () => {
                 key={item.id}
                 rating={item.reting}
                 image={{uri: item.pictures}}
-                onPress={handleFoodDetailNavigation}
+                onPress={() => navigation.navigate('FoodDetail', item)}
                 items={undefined}
                 type="product"
                 price={item.price}
@@ -124,7 +119,7 @@ const Recommended = () => {
                 key={item.id}
                 rating={item.reting}
                 image={{uri: item.pictures}}
-                onPress={handleFoodDetailNavigation}
+                onPress={() => navigation.navigate('FoodDetail', item)}
                 items={undefined}
                 type="product"
                 price={item.price}

@@ -45,7 +45,7 @@ const SignUpAdress = ({navigation}: any) => {
         data,
       )
       .then(res => {
-        console.log('Data Registrasi: ', res.data);
+        ('Data Registrasi: ', res.data);
         dispatch({type: 'SET_LOADING', value: false});
         // notif jika success login
         showMessage({

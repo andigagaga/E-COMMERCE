@@ -2,8 +2,8 @@ import axios from "axios";
 import { showMessage } from "react-native-flash-message";
 import { ThunkAction } from "redux-thunk";
 import { setLoading } from ".";
-import { storeData } from "../../utils/storage";
 import { API_HOST } from "../../config";
+import { storeData } from "../../utils/storage";
 
 type DataRegister = {
     name: string;

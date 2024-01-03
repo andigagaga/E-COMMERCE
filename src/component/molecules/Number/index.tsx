@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { NumericFormat } from 'react-number-format'
 
-const Number = ({ number, type, style }: { number: number, type: string, style?: any }) => {
+const Number = ({ number, type, style }: { number: number, type: string, style: any }) => {
 
     if (type === 'decimal') {
         return (
@@ -26,7 +26,7 @@ const Number = ({ number, type, style }: { number: number, type: string, style?:
             renderText={(value) => <Text style={style}>{value}</Text>}
             decimalSeparator=','
             displayType='text'
-            prefix='Rp. '
+            prefix='Rp '
             style={style}
         />
     )

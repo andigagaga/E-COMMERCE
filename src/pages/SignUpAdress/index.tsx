@@ -1,13 +1,13 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { showMessage } from 'react-native-flash-message';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useDispatch, useSelector } from 'react-redux';
+import {StyleSheet, View} from 'react-native';
+import {showMessage} from 'react-native-flash-message';
+import {ScrollView} from 'react-native-gesture-handler';
+import {useDispatch, useSelector} from 'react-redux';
 import Button from '../../component/atoms/Button';
 import Select from '../../component/atoms/Select';
 import TextInput from '../../component/atoms/TextInput';
 import Header from '../../component/molecules/Header';
-import { setLoading, signUpAction } from '../../redux/action';
+import {setLoading, signUpAction} from '../../redux/action';
 import useForm from '../../utils/useForm';
 
 const SignUpAdress = ({navigation}: any) => {
@@ -27,20 +27,19 @@ const SignUpAdress = ({navigation}: any) => {
       ...form,
       ...registerReducer,
     };
-    console.log(data);
 
     // kondisi pengisian data harus diisi
     if (!form.phoneNumber || !form.address || !form.houseNumber || !form.city) {
       showMessage({
         message: 'Isi data dengan lengkap :)',
         type: 'danger',
-        titleStyle: { textAlign: 'center' },
+        titleStyle: {textAlign: 'center'},
       });
       return;
     }
 
-    dispatch(setLoading(true))
-    dispatch(signUpAction(data, photoReducer, navigation))
+    dispatch(setLoading(true));
+    dispatch(signUpAction(data, photoReducer, navigation));
   };
 
   const showToast = (message: any, type: any) => {

@@ -6,13 +6,13 @@ import HomeProfile from '../../component/molecules/HomeProfile';
 import {useDispatch, useSelector} from 'react-redux';
 import {getFoodData} from '../../redux/action';
 
-const Home = () => {
+const Home = ({navigation}: any) => {
   const dispatch = useDispatch();
   const {food} = useSelector((state: any) => state.homeReducer);
 
   useEffect(() => {
     dispatch(getFoodData());
-  });
+  }, []);
   return (
     <View style={styles.page}>
       <HomeProfile />
@@ -22,9 +22,10 @@ const Home = () => {
             <View style={{width: 24}} />
             {food.map(
               (itemFood: {
-                reting: string | number;
                 name: string;
-                pictures: any;
+                image: string | number;
+                reting: string | number;
+                pictures: string | number;
               }, index: number) => {
                 return (
                   <FoodCard
@@ -32,14 +33,11 @@ const Home = () => {
                     name={itemFood.name}
                     image={{uri: itemFood.pictures}}
                     rating={itemFood.reting}
+                    onPress={() => navigation.navigate('FoodDetail', itemFood)}
                   />
                 );
               },
             )}
-            {/* <FoodCard image={require('../../assets/Dummy/FoodCard1.png')} />
-            <FoodCard image={require('../../assets/Dummy/FoodCard2.png')} />
-            <FoodCard image={require('../../assets/Dummy/FoodCard3.png')} />
-            <FoodCard image={require('../../assets/Dummy/FoodCard1.png')} /> */}
             <View style={{width: 13}} />
           </View>
         </ScrollView>

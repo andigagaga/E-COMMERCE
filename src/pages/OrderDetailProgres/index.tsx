@@ -4,54 +4,97 @@ import Header from '../../component/molecules/Header';
 import ItemListFood from '../../component/molecules/ItemListFood';
 import ItemValue from '../../component/molecules/ItemValue';
 import Button from '../../component/atoms/Button';
+import axios from 'axios';
+import {API_HOST} from '../../config';
+import {getData} from '../../utils/storage';
 
-const OrderDetail = ({navigation}: any) => {
+const OrderDetail = ({navigation, route}: any) => {
+  const {order} = route.params;
+
+  // fungsi untuk cancel order
+  const onCancel = () => {
+    const data = {
+      status: 'CANCELLED',
+    };
+    getData('token').then(resToken => {
+      axios
+        .post(`${API_HOST.url}/api/transaction/${order.id}`, data, {
+          headers: {
+            Authorization: resToken.value,
+          },
+        })
+        .then(res => {
+          console.log('cancel order berhasil', res);
+          navigation.reset({index: 0, routes: [{name: 'appMain'}]});
+        })
+        .catch(err => {
+          console.log('cancel gagal', err);
+        });
+    });
+  };
+
   return (
     <View style={{flex: 1}}>
-      <Header title="Payment" subTitle="You deserve better meal" onBack />
+      <Header
+        title="Payment"
+        subTitle="You deserve better meal"
+        onBack={() => navigation.goBack()}
+      />
       <ScrollView>
         <View style={{height: 5}} />
         <View style={styles.container}>
-          <Text style={styles.label}>Item Ordered</Text>
+          <Text style={styles.label}>Item Orderedsss</Text>
           <ItemListFood
-            image={require('../../assets/Dummy/FoodCard2.png')}
+            image={order?.food?.pictures ? {uri: order?.food?.pictures} : null}
             type="order-summary"
-            name="Guswandi"
-            price="2.000.000"
-            items={14}
+            name={order?.food?.name}
+            price={order?.food?.price}
+            items={order?.quantity}
             onPress={undefined}
             rating={undefined}
           />
+
           <View style={{height: 20}} />
           <Text style={styles.label}>Details Transaction</Text>
-          <ItemValue label="Cherry Healthy" value="IDR 18.390.000" />
-          <ItemValue label="Driver" value="IDR 50.000" />
-          <ItemValue label="Tax 10%" value="IDR 1.800.390" />
-          <ItemValue label="Total Price" value="IDR 390.803.000" />
+          <ItemValue
+            label={order?.food?.name}
+            value={order?.food?.total}
+            type="currency"
+          />
+          <ItemValue label="Driver" value={50000} type="currency" />
+          <ItemValue
+            label="Tax 10%"
+            value={(10 / 100) * order?.total}
+            type="currency"
+          />
+          <ItemValue label="Total Price" value={order?.total} type="currency" />
         </View>
         <View style={{height: 5}} />
         <View style={styles.container}>
           <Text style={styles.label}>Deliver to:</Text>
-          <ItemValue label="Name" value="Angga Risky" />
-          <ItemValue label="Phone No." value="0822 0819 9688" />
-          <ItemValue label="Address" value="Setra Duta Palima" />
-          <ItemValue label="House No." value="A5 Hook" />
-          <ItemValue label="City" value="Bandung" />
+          <ItemValue label="Name" value={order?.user?.name} />
+          <ItemValue label="Phone No." value={order?.user?.phoneNumber} />
+          <ItemValue label="Address" value={order?.user?.address} />
+          <ItemValue label="House No." value={order?.user?.houseNumber} />
+          <ItemValue label="City" value={order?.usercity} />
         </View>
 
         <View style={{height: 5}} />
         <View style={styles.container}>
           <Text style={styles.label}>Order Status:</Text>
-          <ItemValue label="#FM209391" value="Paid" />
+          <ItemValue label={`${order.id}`} value={order.status} />
         </View>
 
         <View style={styles.button}>
-          <Button
-            text="Cancel My Order"
-            onPress={() => navigation.replace('SuccesOrder')}
-            backgroundColor='rgba(217, 67, 94, 1)'
-            color='white'
-          />
+          {/* logic kalau status nya pending maka tombol button nya ada */}
+          {order.status === 'PENDING' && (
+            <Button
+              text="Cancel My Order"
+              onPress={onCancel}
+              backgroundColor="rgba(217, 67, 94, 1)"
+              color="white"
+            />
+          )}
         </View>
       </ScrollView>
     </View>

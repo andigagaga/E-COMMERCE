@@ -35,7 +35,7 @@ const ItemListFood = ({
           <>
             <View style={styles.contentContainer}>
               <Text style={styles.title}>{name}</Text>
-              <Text style={styles.price}>IDR {price}</Text>
+              <Number style={styles.price} number={price} type="currency" />
             </View>
             <Text style={styles.titleItems}>{items} items</Text>
           </>
@@ -46,25 +46,32 @@ const ItemListFood = ({
           <>
             <View style={styles.contentContainer}>
               <Text style={styles.title}>{name}</Text>
-              <Text style={styles.price}>
-                {TotalItems} items * IDR {price}
-              </Text>
+              <View style={styles.containerPrice}>
+                <Text style={styles.titleItems}>{items}3 items</Text>
+                <View style={{ width: 3, height: 3, borderRadius: 3, backgroundColor: 'rgba(141, 146, 163, 1)', alignItems: 'center', marginHorizontal: 4 }}/>
+                <Number style={styles.price} number={price} type="currency" />
+              </View>
             </View>
           </>
         );
       case 'past-orders':
         // item past orders
+
+        // function untuk mengubah agar date nya mudah di baca
+        const formatedDate = new Date(date).toDateString();
         return (
           <>
             <View style={styles.contentContainer}>
               <Text style={styles.title}>{name}</Text>
-              <Text style={styles.price}>
-                {TotalItems} items IDR {price}
-              </Text>
+              <View style={styles.containerPrice}>
+                <Text style={styles.titleItems}>{items}3 items</Text>
+                <View style={{ width: 3, height: 3, borderRadius: 3, backgroundColor: 'rgba(141, 146, 163, 1)', alignItems: 'center', marginHorizontal: 4 }}/>
+                <Number style={styles.price} number={price} type="currency" />
+              </View>
             </View>
             <View>
-              <Text style={styles.date}>{date}</Text>
-              <Text style={styles.status}>{status}</Text>
+              <Text style={styles.date}>{formatedDate}</Text>
+              <Text style={styles.status(status)}>{status}</Text>
             </View>
           </>
         );
@@ -119,5 +126,6 @@ const styles = StyleSheet.create({
     fontWeight: '400',
   },
   date: {color: 'rgba(141, 146, 163, 1)', fontSize: 10, fontWeight: '400'},
-  status: {color: 'rgba(217, 67, 94, 1)', fontSize: 10, fontWeight: '400'},
+  status: (status: string) => ({color: status === 'CANCELLED' ?  'rgba(217, 67, 94, 1)' : '#1abc9c', fontSize: 10, fontWeight: '400'}),
+  containerPrice: {flexDirection: 'row', alignItems: 'center'}
 });

@@ -1,14 +1,11 @@
-import axios from 'axios';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { showMessage } from 'react-native-flash-message';
+import { useDispatch } from 'react-redux';
 import Button from '../../component/atoms/Button';
 import TextInput from '../../component/atoms/TextInput';
 import Header from '../../component/molecules/Header';
+import { signInAction } from '../../redux/action';
 import useForm from '../../utils/useForm';
-import { setLoading, signInAction } from '../../redux/action';
-import { useDispatch } from 'react-redux';
-import { getData } from '../../utils/storage';
 
 const SignIn = ({navigation}: any) => {
   // const [email, setEmail] = useState('');
@@ -19,15 +16,6 @@ const SignIn = ({navigation}: any) => {
   });
 
   const dispatch = useDispatch();
-
-  // untuk penyimpanan agar ketika user masuk aplikasi maka akan langsung masuk ke halaman home tanpa perlu login ulang apa bila user belom sigout / token  ya belom kehapius
-  // useEffect(() => {
-  //   getData('token').then((res) => {
-  //     if(res) {
-  //       navigation.reset({index: 0, routes: [{name: 'appMain'}]})
-  //     }
-  //   })
-  // }, )
 
   const onSubmit = async () => {
     dispatch(signInAction(form, navigation));

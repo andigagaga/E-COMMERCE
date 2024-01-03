@@ -33,7 +33,7 @@ const Profile = () => {
         </View>
         <View style={styles.content}>
           <Text style={styles.title}>{dataProfile.name}</Text>
-          <Text>{dataProfile.email}</Text>
+          <Text style={styles.email}>{dataProfile.email}</Text>
         </View>
       </View>
       <View style={{height: 24}} />
@@ -73,6 +73,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   content: {marginTop: 20, alignItems: 'center'},
-  title: {color: 'rgba(2, 2, 2, 1)', fontSize: 15, fontWeight: '500'},
+  title: {color: 'rgba(2, 2, 2, 1)', fontSize: 18, fontWeight: 'bold', alignItems: 'center', lineHeight: 27},
   subTitle: {color: 'rgba(141, 146, 163, 1)', fontSize: 14, fontWeight: '300'},
+  email: {color: 'rgba(141, 146, 163, 1)', lineHeight: 21, fontSize: 14, fontWeight: '300'}
 });

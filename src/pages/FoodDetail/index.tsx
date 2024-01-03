@@ -6,18 +6,82 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import Rating from '../../component/molecules/Rating';
 import Button from '../../component/atoms/Button';
 import Counter from '../../component/molecules/Counter';
+import Number from '../../component/molecules/Number';
+import {getData} from '../../utils/storage';
 
-const FoodDetail = ({navigation}: any) => {
+type DetailTypes = {
+  id: number;
+  name: string;
+  pictures: string;
+  description: string;
+  ingredients: string;
+  price: number;
+  reting: number;
+};
+
+const FoodDetail = ({navigation, route}: any) => {
+  const {
+    id,
+    name,
+    pictures,
+    description,
+    ingredients,
+    price,
+    reting,
+  }: DetailTypes = route.params;
+
+  const [totalItem, setTotalItem] = useState(1);
+  // state data Profile
+  const [userProfile, setUserProfile] = useState({});
+
+  // data profile di order nya
+  useEffect(() => {
+    getData('userProfile').then(res => {
+      setUserProfile(res);
+    });
+  }, []);
+
+  const onCounterChange = (value: number) => {
+    setTotalItem(value);
+  };
+
+  // data food yang di order
+  const onOrder = () => {
+    const totalPrice = totalItem * price;
+    const driver = 50000;
+    const tax = (10 / 100) * totalPrice;
+    const total = totalPrice + driver + tax;
+    const data = {
+      item: {
+        id: id,
+        name: name,
+        price: price,
+        pictures: pictures,
+      },
+      transaction: {
+        totalItem: totalItem,
+        totalPrice: totalPrice,
+        driver: driver,
+        tax: tax,
+        total: total,
+      },
+      userProfile,
+    };
+
+    console.log('data order yang di dapat', data);
+    navigation.navigate('OrderSummary', data);
+  };
+
   return (
     <View style={styles.page}>
-      <ImageBackground
-        source={require('../../assets/Dummy/FoodDetail.png')}
-        style={styles.cover}>
-        <TouchableOpacity style={styles.back}>
+      <ImageBackground source={{uri: pictures}} style={styles.cover}>
+        <TouchableOpacity
+          style={styles.back}
+          onPress={() => navigation.goBack()}>
           <Image source={require('../../assets/Icon/Ic-Back-white.png')} />
         </TouchableOpacity>
       </ImageBackground>
@@ -26,29 +90,29 @@ const FoodDetail = ({navigation}: any) => {
           <View>
             <View style={styles.productContainer}>
               <View>
-                <Text style={styles.title}>Cherry Healthy</Text>
-                <Rating />
+                <Text style={styles.title}>{name}</Text>
+                <Rating number={reting} />
               </View>
-              <Counter/>
+              <Counter onValueChange={onCounterChange} />
             </View>
-            <Text style={styles.desc}>
-              Makanan khas Bandung yang cukup sering dipesan oleh anak muda
-              dengan pola makan yang cukup tinggi dengan mengutamakan diet yang
-              sehat dan teratur.
-            </Text>
+            <Text style={styles.desc}>{description}</Text>
           </View>
           <View>
             <Text style={styles.label}>Ingredients:</Text>
-            <Text style={styles.desc}>Seledri, telur, blueberry, madu.</Text>
+            <Text style={styles.desc}>{ingredients}</Text>
           </View>
         </View>
         <View style={styles.footer}>
           <View style={styles.priceContainer}>
             <Text style={styles.labelTotal}>Total Price:</Text>
-            <Text style={styles.priceTotal}>IDR 12.289.000</Text>
+            <Number
+              number={totalItem * price}
+              type="currency"
+              style={styles.priceTotal}
+            />
           </View>
           <View style={styles.button}>
-            <Button text="Order Now" onPress={() => navigation.navigate('OrderSummary')}/>
+            <Button text="Order Now" onPress={onOrder} />
           </View>
         </View>
       </View>
@@ -83,7 +147,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 30
+    marginBottom: 30,
   },
   desc: {
     color: 'rgba(141, 146, 163, 1)',
@@ -101,7 +165,10 @@ const styles = StyleSheet.create({
   footer: {flexDirection: 'row', paddingVertical: 16, alignItems: 'center'},
   priceContainer: {flex: 1},
   button: {width: 163, height: 45, borderRadius: 8},
-  labelTotal: {color: 'rgba(141, 146, 163, 1)', fontSize: 13, fontWeight: '400'},
-  priceTotal: {color: 'rgba(2, 2, 2, 1)', fontSize: 18, fontWeight: '400'}
-
+  labelTotal: {
+    color: 'rgba(141, 146, 163, 1)',
+    fontSize: 13,
+    fontWeight: '400',
+  },
+  priceTotal: {color: 'rgba(2, 2, 2, 1)', fontSize: 18, fontWeight: '400'},
 });

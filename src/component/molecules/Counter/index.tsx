@@ -1,15 +1,36 @@
-import {Image, StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import {TouchableOpacity} from 'react-native-gesture-handler';
+import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
-const Counter = () => {
+const Counter = ({onValueChange} : any) => {
+
+  const [value, setValue] = useState(1);
+
+  useEffect(() => {
+    onValueChange(value)
+  })
+
+  const onCount = (type: any) => {
+    let result = value;
+    if(type === 'plus') {
+      result = value + 1;
+    }
+    if(type === 'minus') {
+      if(value > 1) {
+        result = value - 1;
+
+      }
+    }
+    setValue(result)
+    onValueChange(result)
+  }
   return (
     <View style={styles.container}>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => onCount('minus')}>
         <Image source={require('../../../assets/Icon/Ic-Min.png')} />
       </TouchableOpacity>
-      <Text style={styles.counter}>14</Text>
-      <TouchableOpacity>
+      <Text style={styles.counter}>{value}</Text>
+      <TouchableOpacity onPress={() => onCount('plus')}>
         <Image source={require('../../../assets/Icon/Ic-Plus.png')} />
       </TouchableOpacity>
     </View>
@@ -27,3 +48,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
 });
+function onCounterChange() {
+  throw new Error('Function not implemented.');
+}
+
